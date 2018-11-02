@@ -14,35 +14,13 @@ a {
   overflow: visible;
 }
 
-.w-container {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 940px;
-}
-.w-container:before,
-.w-container:after {
-  content: " ";
-  display: table;
-  grid-column-start: 1;
-  grid-row-start: 1;
-  grid-column-end: 2;
-  grid-row-end: 2;
-}
-.w-container:after {
-  clear: both;
-}
-.w-container .w-row {
-  margin-left: -10px;
-  margin-right: -10px;
-}
-
 .navigation {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   max-width: 940px;
-  min-height: 35px;
+  min-height: 30px;
   margin-top: 40px;
   margin-right: auto;
   margin-left: auto;
@@ -56,11 +34,6 @@ a {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
-}
-
-.w-list-unstyled {
-  padding-left: 0;
-  list-style: none;
 }
 
 .logo {
@@ -146,7 +119,6 @@ a {
   border-color: hsla(0, 0%, 100%, .2);
   border-bottom-style: solid;
   border-bottom-width: 1px;
-  margin-top: 0;
 }
 
 .table-title {
@@ -210,13 +182,6 @@ a {
   color: #fff;
 }
 
-.w-button {
-  display: inline-block;
-  line-height: inherit;
-  text-decoration: none;
-  cursor: pointer;
-}
-
 .list-item-3 {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
@@ -235,7 +200,16 @@ a {
   text-align: center;
 }
 
-.footer img {
+.footer img{
+  cursor: crosshair;
+}
+
+.text-block {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  font-size: 26px;
+  text-align: center;
   cursor: crosshair;
 }
 
@@ -312,61 +286,12 @@ a {
   display: none;
 }
 
-.beyondpricing_1 {
-  width: 1000px;
-  height: 640px;
-  max-height: 640px;
-  max-width: 1000px;
-  background-image: url('../images/beyondpricing_home.png');
-  background-position: 50% 50%;
-  background-size: 1000px;
-  background-repeat: no-repeat;
-}
-
-.bigpay_1 {
-  background-image: url('../images/bigpay.png');
-  background-position: 0px 0px;
-  background-size: 1000px;
-}
-
 .mask {
   width: 1000px;
   height: 640px;
   max-height: 640px;
   max-width: 1000px;
   border-radius: 3px;
-}
-
-.slider {
-  height: 700px;
-  max-height: 640px;
-  border-radius: 3px;
-  background-image: url('../images/example-bg.png'), -webkit-linear-gradient(270deg, #68d3ce, #68d3ce);
-  background-image: url('../images/example-bg.png'), linear-gradient(180deg, #68d3ce, #68d3ce);
-  background-position: 50% 50%, 0px 0px;
-  background-size: contain, auto;
-  background-repeat: no-repeat, repeat;
-}
-
-.gitbook_logo {
-  background-image: url('../images/gitbook.png');
-  background-position: 50% 50%;
-  background-size: 1000px;
-  background-repeat: no-repeat;
-}
-
-.bigpay_style {
-  background-image: url('../images/AirAsia_style.png');
-  background-position: 50% 50%;
-  background-size: 1000px;
-  background-repeat: no-repeat;
-}
-
-.beyondpricing_2 {
-  background-image: url('../images/beyondpricing_dash.png');
-  background-position: 50% 50%;
-  background-size: 1000px;
-  background-repeat: no-repeat;
 }
 
 .text-span {
@@ -390,26 +315,6 @@ a {
 .text-span-5 {
   font-size: 11px;
 }
-
-.deezerapps {
-  background-image: url('../images/Deezer_apps.png');
-  background-position: 50% 50%;
-  background-size: 1000px;
-  background-repeat: no-repeat;
-}
-
-.dailymotion_office {
-  background-image: url('../images/Dailymotion_office.png');
-  background-position: 50% 50%;
-  background-size: 1000px;
-  background-repeat: no-repeat;
-}
-
-.remotestories_illu {
-  background-image: url('../images/RemoteStories_Illustration.png');
-  background-position: 50% 50%;
-  background-size: 1000px;
-  background-repeat: no-repeat;
 
 @media (max-width: 991px) {
   .navigation {
