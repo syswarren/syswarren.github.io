@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Accessibility Standards - Koa11y</title>
+    <meta name="generator" content="Koa11y 3.0.0" />
+
+
+
+    <!--
+
+      Run this test on your site with Koa11y!
+
+      https://open-indy.github.io/Koa11y/
+
+    -->
+
+
+
+    <style>
+      @import url('https://fonts.googleapis.com/css?family=Lato:400,700,400italic');
+      *,
+      *:before,
+      *:after {
+        box-sizing: border-box;
+      }
+      html {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      }
+      body {
+        background: #FFF;
+        margin-top: 17px;
+        color: #2C3E50;
+        font-family: 'Lato', 'Helvetica Neue', sans-serif;
+        font-size: 15px;
+        line-height: 1.42857143;
+      }
+      h1 {
+        display: inline-block;
+        margin: 21px 0px 20px;
+        font-size: 39px;
+        font-weight: 400;
+        word-break: break-all;
+      }
+      h4 {
+        margin: 0px;
+        color: #636F79;
+        font-size: 14.25px;
+      }
+      pre {
+        display: block;
+        background-color: #ECF0F1;
+        border: 1px solid #CCC;
+        border-radius: 4px;
+        margin: 0px 0px 10.5px;
+        padding: 10px;
+        color: #7B8A8B;
+        font-family: 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace;
+        font-size: 14px;
+        line-height: 1.42857143;
+        overflow: auto;
+        word-break: break-all;
+        word-wrap: break-word;
+      }
+      code {
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+      .container {
+        max-width: 900px;
+        width: 100%;
+        margin: 0px auto;
+        padding: 0px 15px;
+      }
+      .row {
+        margin-right: -15px;
+        margin-left: -15px;
+        clear: both;
+      }
+      .panel {
+        background-color: #FFF;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        margin-bottom: 21px;
+        box-shadow: 0px 1px 1px rgba(0,0,0,0.05);
+      }
+      .panel-heading {
+        padding: 10px 15px;
+        border-bottom: 1px solid transparent;
+        border-top-right-radius: 3px;
+        border-top-left-radius: 3px;
+        color: #FFF;
+      }
+      .panel-body {
+        padding: 15px;
+      }
+      .panel-footer {
+        background-color: #ECF0F1;
+        border-top: 1px solid #ECF0F1;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+        padding: 10px 15px;
+      }
+      .panel-success { border-color: #18BC9C; }
+      .panel-danger  { border-color: #E74C3C; }
+      .panel-warning { border-color: #F39C12; }
+      .panel-primary { border-color: #2C3E50; }
+      .panel-success>.panel-heading { background-color: #18BC9C; border-color: #18BC9C; }
+      .panel-danger>.panel-heading  { background-color: #E74C3C; border-color: #E74C3C; }
+      .panel-warning>.panel-heading { background-color: #F39C12; border-color: #F39C12; }
+      .panel-primary>.panel-heading { background-color: #2C3E50; border-color: #2C3E50; }
+      .hide {
+        display: none;
+      }
+      .text-capitalize {
+        color: #8C8C8C;
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+      #buttons {
+        display: inline-block;
+        margin-top: 30px;
+        float: right;
+      }
+      #buttons .disabled {
+        box-shadow: none;
+        cursor: pointer;
+        filter: alpha(opacity=65);
+        opacity: 0.65;
+        pointer-events: auto;
+      }
+      .panel-primary i {
+        margin: 0px 7px;
+      }
+      .btn {
+        display: inline-block;
+        background-image: none;
+        border: 2px solid transparent;
+        border-radius: 4px;
+        margin-bottom: 0px;
+        padding: 10px 15px;
+        font-size: 15px;
+        font-weight: normal;
+        line-height: 1.42857143;
+        text-align: center;
+        cursor: pointer;
+        touch-action: manipulation;
+        user-select: none;
+        white-space: nowrap;
+        vertical-align: middle;
+      }
+      .btn-sm {
+        border-radius: 3px;
+        padding: 6px 9px;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .btn-danger {
+        background-color: #E74C3C;
+        border-color: #E74C3C;
+        color: #FFF;
+      }
+      .btn-warning {
+        background-color: #F39C12;
+        border-color: #F39C12;
+        color: #FFF;
+      }
+      .btn-primary {
+        background-color: #2C3E50;
+        border-color: #2C3E50;
+        color: #FFF;
+      }
+      .btn-danger,
+      .btn-warning {
+        margin-right: 3px;
+      }
+      .badge {
+        position: relative;
+        top: -1px;
+        display: inline-block;
+        min-width: 10px;
+        background-color: #FFF;
+        border-radius: 10px;
+        padding: 3px 7px;
+        color: #FFF;
+        font-size: 13px;
+        font-weight: bold;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+      }
+      .btn-danger .badge {
+        color: #E74C3C;
+      }
+      .btn-warning .badge {
+        color: #F39C12;
+      }
+      .btn-primary .badge {
+        color: #2C3E50;
+      }
+      .glyphicon {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        vertical-align: top;
+      }
+      .glyphicon-ok {
+        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMSAtNiAzMiAzMiI+PHBhdGggZmlsbD0iIzE4QkM5QyIgZD0iTS43NzMgMTMuNDkzbDExLjE3MyAxMS4yTDMzLjc1OSAyLjgyNmwtNS42NTMtNS42NTNMMTEuOTE5IDEzLjM2IDYuNDI2IDcuODR6Ii8+PC9zdmc+');
+      }
+      .glyphicon-remove {
+        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAtNiAzMiAzMiI+PHBhdGggZmlsbD0iI0U3NEMzQyIgZD0iTTIuODI3IDE3LjEybDcuNTItNy41Mi03LjUyLTcuNTJMOC40OC0zLjU3MyAxNiAzLjk0N2w3LjUyLTcuNTIgNS42NTMgNS42NTMtNy41MiA3LjUyIDcuNTIgNy41Mi01LjY1MyA1LjY1My03LjUyLTcuNTItNy41MiA3LjUyeiIvPjwvc3ZnPg==');
+      }
+      .glyphicon-ban-circle {
+        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAtNiAzMiAzMiI+PHBhdGggZmlsbD0iI0YzOUMxMiIgZD0iTS4xMDcgOS42cTAtNC4zMiAyLjEzMy03Ljk3M1Q4LjAyNy00LjE2IDE2LTYuMjkzdDcuOTczIDIuMTMzIDUuNzg3IDUuNzg3VDMxLjg5MyA5LjZ0LTIuMTMzIDcuOTczLTUuNzg3IDUuNzg3VDE2IDI1LjQ5MyA4LjAyNyAyMy4zNiAyLjI0IDE3LjU3My4xMDcgOS42em00Ljg1MyAwcTAgMy4wNjcgMS42NTMgNS43MzNMMjEuNzYuMjEzUTE5LjA5My0xLjQ0IDE2LTEuNDRxLTQuNTYgMC03LjggMy4yNFQ0Ljk2IDkuNnptNS40NjcgOS40NjdRMTMuMDE0IDIwLjY0IDE2IDIwLjY0cTQuNTYgMCA3LjgtMy4yNHQzLjI0LTcuOHEwLTIuOTg3LTEuNTczLTUuNTczeiIvPjwvc3ZnPg==');
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" role="main">
+          <div class="row">
+      <span id="buttons"><button class="btn btn-sm btn-danger">Errors <span class="badge">9</span></button><button class="btn btn-sm btn-warning">Warnings <span class="badge">2</span></button><button class="btn btn-sm btn-primary">Notices <span class="badge">135</span></button></span>
+      <h1>https://remotestories.com/</h1>
+    </div>
+
+    <div class="row"><div class="panel panel-danger">
+<div class="panel-heading">WCAG2AAA.Principle1.Guideline1_4.1_4_6.G17.Fail</div>
+<div class="panel-body">
+<strong class="text-capitalize">error:</strong> This element has insufficient contrast at this conformance level. Expected a contrast ratio of at least 7:1, but text in this element has a contrast ratio of 5.08:1. <strong>Recommendation:</strong> change background to #3844d8.<br /><br />
+<pre><code>&lt;a class="Layout-Header-link" href="/jobs">Remote Jobs&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > header > nav > ul > li:nth-child(1) > a</small></h4></div>
+</div>
+<div class="panel panel-danger">
+<div class="panel-heading">WCAG2AAA.Principle1.Guideline1_4.1_4_6.G17.Fail</div>
+<div class="panel-body">
+<strong class="text-capitalize">error:</strong> This element has insufficient contrast at this conformance level. Expected a contrast ratio of at least 7:1, but text in this element has a contrast ratio of 5.08:1. <strong>Recommendation:</strong> change text colour to #3844d8.<br /><br />
+<pre><code>&lt;a class="Button Button--white-color" href="/stories/new">Write story&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > header > nav > ul > li:nth-child(2) > a</small></h4></div>
+</div>
+<div class="panel panel-danger">
+<div class="panel-heading">WCAG2AAA.Principle1.Guideline1_4.1_4_6.G17.Fail</div>
+<div class="panel-body">
+<strong class="text-capitalize">error:</strong> This element has insufficient contrast at this conformance level. Expected a contrast ratio of at least 7:1, but text in this element has a contrast ratio of 5.68:1. <strong>Recommendation:</strong> change text colour to #00010a.<br /><br />
+<pre><code>&lt;a class="Breadcrumbs-link is-active" href="/">Featured&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(2) > nav > ol > li:nth-child(1) > a</small></h4></div>
+</div>
+<div class="panel panel-danger">
+<div class="panel-heading">WCAG2AAA.Principle1.Guideline1_4.1_4_6.G17.Fail</div>
+<div class="panel-body">
+<strong class="text-capitalize">error:</strong> This element has insufficient contrast at this conformance level. Expected a contrast ratio of at least 7:1, but text in this element has a contrast ratio of 5.68:1. <strong>Recommendation:</strong> change text colour to #00010a.<br /><br />
+<pre><code>&lt;a class="Breadcrumbs-link" href="/popular">Popular&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(2) > nav > ol > li:nth-child(2) > a</small></h4></div>
+</div>
+<div class="panel panel-danger">
+<div class="panel-heading">WCAG2AAA.Principle4.Guideline4_1.4_1_2.H91.InputText.Name</div>
+<div class="panel-body">
+<strong class="text-capitalize">error:</strong> This text input element does not have a name available to an accessibility API. Valid names are: label element, title attribute.<br /><br />
+<pre><code>&lt;input type="text" name="b_072a7751eb4f30f3a55d2e12c_c59774554d" tabindex="-1" value=""></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > aside > form > div > div > input</small></h4></div>
+</div>
+<div class="panel panel-danger">
+<div class="panel-heading">WCAG2AAA.Principle1.Guideline1_3.1_3_1.F68</div>
+<div class="panel-body">
+<strong class="text-capitalize">error:</strong> This form field should be labelled in some way. Use the label element (either with a "for" attribute or wrapped around the form field), or "title", "aria-label" or "aria-labelledby" attributes as appropriate.<br /><br />
+<pre><code>&lt;input type="text" name="b_072a7751eb4f30f3a55d2e12c_c59774554d" tabindex="-1" value=""></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > aside > form > div > div > input</small></h4></div>
+</div>
+<div class="panel panel-danger">
+<div class="panel-heading">WCAG2AAA.Principle1.Guideline1_4.1_4_6.G17.Fail</div>
+<div class="panel-body">
+<strong class="text-capitalize">error:</strong> This element has insufficient contrast at this conformance level. Expected a contrast ratio of at least 7:1, but text in this element has a contrast ratio of 5.08:1. <strong>Recommendation:</strong> change background to #3844d8.<br /><br />
+<pre><code>&lt;button class="Button Button--purple-color NewsletterSubscribe-button">Subscribe&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > aside > form > div > button</small></h4></div>
+</div>
+<div class="panel panel-danger">
+<div class="panel-heading">WCAG2AAA.Principle1.Guideline1_4.1_4_6.G17.Fail</div>
+<div class="panel-body">
+<strong class="text-capitalize">error:</strong> This element has insufficient contrast at this conformance level. Expected a contrast ratio of at least 7:1, but text in this element has a contrast ratio of 4.72:1. <strong>Recommendation:</strong> change text colour to #00010c.<br /><br />
+<pre><code>&lt;button class="Layout-Sidebar-Cookies-Consent-button">I understand&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > aside > div > ol > li:nth-child(1) > button</small></h4></div>
+</div>
+<div class="panel panel-danger">
+<div class="panel-heading">WCAG2AAA.Principle1.Guideline1_4.1_4_6.G17.Fail</div>
+<div class="panel-body">
+<strong class="text-capitalize">error:</strong> This element has insufficient contrast at this conformance level. Expected a contrast ratio of at least 7:1, but text in this element has a contrast ratio of 4.72:1. <strong>Recommendation:</strong> change text colour to #00010c.<br /><br />
+<pre><code>&lt;a class="" href="/cookies">Our cookies policy&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > aside > div > ol > li:nth-child(2) > a</small></h4></div>
+</div>
+<div class="panel panel-warning">
+<div class="panel-heading">WCAG2AAA.Principle1.Guideline1_3.1_3_1.H44.NonExistentFragment</div>
+<div class="panel-body">
+<strong class="text-capitalize">warning:</strong> This label's "for" attribute contains an ID that does not exist in the document fragment.<br /><br />
+<pre><code>&lt;label class="StoriesQuickForm Spacing--large">&lt;img alt="Anonymous avatar" cla...&lt;/label></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > label</small></h4></div>
+</div>
+<div class="panel panel-warning">
+<div class="panel-heading">WCAG2AAA.Principle1.Guideline1_3.1_3_1.H48</div>
+<div class="panel-body">
+<strong class="text-capitalize">warning:</strong> If this element contains a navigation section, it is recommended that it be marked up as a list.<br /><br />
+<pre><code>&lt;div class="Pagination">&lt;a class="PageLink is-active" h...&lt;/div></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > div:nth-child(4)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_2.H25.2</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that the title element describes the document.<br /><br />
+<pre><code>&lt;title class="next-head">Remote Stories | Jobs, tips and...&lt;/title></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>html > head > title</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="" href="/">&lt;img src="data:image/svg+xml;ba...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > header > nav > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle1.Guideline1_1.1_1_1.G94.Image</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Ensure that the img element's alt text serves the same purpose and presents the same information as the image.<br /><br />
+<pre><code>&lt;img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTcxIiBoZWlnaHQ9IjIwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xMC43NTIgMTIuNDQ4bDMuODE2IDYuMTY4Yy4xMi4yMTYtLjA0OC4zODQtLjI2NC4zODRIOS4xNjhjLS4yNCAwLS40NTYtLjE2OC0uNTUyLS4zODRMNi...</code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > header > nav > a > img</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle1.Guideline1_1.1_1_1.G73,G74</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> If this image cannot be fully described in a short text alternative, ensure a long text alternative is also available, such as in the body text or through a link.<br /><br />
+<pre><code>&lt;img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTcxIiBoZWlnaHQ9IjIwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xMC43NTIgMTIuNDQ4bDMuODE2IDYuMTY4Yy4xMi4yMTYtLjA0OC4zODQtLjI2NC4zODRIOS4xNjhjLS4yNCAwLS40NTYtLjE2OC0uNTUyLS4zODRMNi...</code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > header > nav > a > img</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Layout-Header-link" href="/jobs">Remote Jobs&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > header > nav > ul > li:nth-child(1) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Button Button--white-color" href="/stories/new">Write story&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > header > nav > ul > li:nth-child(2) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button class="Layout-Header-hamburger">&lt;img src="data:image/svg+xml;ba...&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > header > nav > button</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle1.Guideline1_1.1_1_1.G94.Image</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Ensure that the img element's alt text serves the same purpose and presents the same information as the image.<br /><br />
+<pre><code>&lt;img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTIxIDBIMWEuOTQ1Ljk0NSAwIDAgMC0xIDF2MjBhLjk0NS45NDUgMCAwIDAgMSAxaDIwYS45NDUuOTQ1IDAgMCAwIDEtMVYxYS45NDUuOTQ1IDAgMCAwLT...</code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > header > nav > button > img</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle1.Guideline1_1.1_1_1.G73,G74</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> If this image cannot be fully described in a short text alternative, ensure a long text alternative is also available, such as in the body text or through a link.<br /><br />
+<pre><code>&lt;img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTIxIDBIMWEuOTQ1Ljk0NSAwIDAgMC0xIDF2MjBhLjk0NS45NDUgMCAwIDAgMSAxaDIwYS45NDUuOTQ1IDAgMCAwIDEtMVYxYS45NDUuOTQ1IDAgMCAwLT...</code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > header > nav > button > img</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Breadcrumbs-link is-active" href="/">Featured&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(2) > nav > ol > li:nth-child(1) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Breadcrumbs-link" href="/popular">Popular&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(2) > nav > ol > li:nth-child(2) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle1.Guideline1_1.1_1_1.G94.Image</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Ensure that the img element's alt text serves the same purpose and presents the same information as the image.<br /><br />
+<pre><code>&lt;img alt="Anonymous avatar" class="StoriesQuickForm-image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAJsUlEQVR4AeyatbrVUBCFB4cS6bCSx6Ciw18C1wdB2+ua5NoRvIca7XCpcHeG+ZHrkh05krvP9/0nvmZmxfeO1PNXreqaqKxbjIPBiJ4NR/RKWNKbQUkf...</code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > label > img</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle1.Guideline1_1.1_1_1.G73,G74</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> If this image cannot be fully described in a short text alternative, ensure a long text alternative is also available, such as in the body text or through a link.<br /><br />
+<pre><code>&lt;img alt="Anonymous avatar" class="StoriesQuickForm-image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAJsUlEQVR4AeyatbrVUBCFB4cS6bCSx6Ciw18C1wdB2+ua5NoRvIca7XCpcHeG+ZHrkh05krvP9/0nvmZmxfeO1PNXreqaqKxbjIPBiJ4NR/RKWNKbQUkf...</code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > label > img</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;input class="Font StoriesQuickForm-input Font--black-color Font--small-size Font--medium-weight" placeholder="Write your remote story. It’s anonymous"></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > label > input</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/137">&lt;span hidden="">Work remotely s...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(1) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">31&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(1) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">9&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(1) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/137">1 Comment&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(1) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/158">&lt;span hidden="">Working on a Sa...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(2) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">13&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(2) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">1&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(2) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/158">2 Comments&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(2) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/17">&lt;span hidden="">Remote offices ...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(3) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">18&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(3) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">10&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(3) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/17">5 Comments&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(3) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/12">&lt;span hidden="">Difficulties of...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(4) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">22&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(4) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">24&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(4) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/12">8 Comments&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(4) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/451">&lt;span hidden="">Too many meetin...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(5) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">0&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(5) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">2&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(5) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/451">1 Comment&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(5) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/268">&lt;span hidden="">The remote life...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(6) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">6&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(6) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">2&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(6) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/268">2 Comments&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(6) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/450">&lt;span hidden="">Working from ho...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(7) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">4&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(7) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">0&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(7) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/450">0 Comments&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(7) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/445">&lt;span hidden="">Day off to stay...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(8) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">2&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(8) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">2&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(8) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/445">0 Comments&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(8) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/37">&lt;span hidden="">Remote workers ...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(9) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">25&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(9) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">0&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(9) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/37">2 Comments&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(9) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/240">&lt;span hidden="">My favorite rem...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(10) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">19&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(10) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">0&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(10) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/240">0 Comments&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(10) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/265">&lt;span hidden="">Remote workers ...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(11) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">10&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(11) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">1&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(11) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/265">0 Comments&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(11) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/444">&lt;span hidden="">Does remote wor...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(12) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">5&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(12) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">0&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(12) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/444">2 Comments&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(12) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/443">&lt;span hidden="">Working remotel...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(13) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">4&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(13) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">0&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(13) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/443">0 Comments&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(13) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/317">&lt;span hidden="">Pros and cons o...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(14) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">40&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(14) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">4&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(14) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/317">1 Comment&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(14) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/442">&lt;span hidden="">Feeling lonely ...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(15) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">1&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(15) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">4&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(15) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/442">1 Comment&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(15) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/57">&lt;span hidden="">Working remotel...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(16) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">229&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(16) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">20&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(16) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/57">10 Comments&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(16) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/438">&lt;span hidden="">Who would ever ...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(17) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">8&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(17) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">0&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(17) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/438">0 Comments&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(17) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/437">&lt;span hidden="">What is the bes...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(18) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">3&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(18) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">0&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(18) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/437">1 Comment&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(18) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/433">&lt;span hidden="">Thinking about ...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(19) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">5&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(19) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">3&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(19) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/433">0 Comments&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(19) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/431">&lt;span hidden="">I miss having a...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(20) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">0&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(20) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">3&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(20) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/431">1 Comment&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(20) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/430">&lt;span hidden="">Story 430&lt;/span...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(21) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">3&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(21) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">3&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(21) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/430">0 Comments&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(21) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/428">&lt;span hidden="">Story 428&lt;/span...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(22) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">4&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(22) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">4&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(22) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/428">2 Comments&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(22) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/427">&lt;span hidden="">Story 427&lt;/span...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(23) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">14&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(23) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">3&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(23) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/427">1 Comment&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(23) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/426">&lt;span hidden="">Does working re...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(24) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">1&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(24) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">4&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(24) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/426">3 Comments&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(24) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="StoryList-link" href="/stories/390">&lt;span hidden="">Story 390&lt;/span...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(25) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Agree" class="Story-button Story-reaction Story-reaction--laugh">3&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(25) > article > div > button:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button aria-label="Disagree" class="Story-button Story-reaction Story-reaction--confused">11&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(25) > article > div > button:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="Story-button" href="/stories/390">3 Comments&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > ol > li:nth-child(25) > article > div > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="PageLink is-active" href="/?page=1">1&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > div:nth-child(4) > a:nth-child(1)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="PageLink" href="/?page=2">2&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > div:nth-child(4) > a:nth-child(2)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="PageLink" href="/?page=3">3&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > div:nth-child(4) > a:nth-child(3)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="PageLink" href="/?page=9">9&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > div:nth-child(4) > a:nth-child(5)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="" href="/?page=2">&lt;img src="data:image/svg+xml;ba...&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > div:nth-child(4) > a:nth-child(6)</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle1.Guideline1_1.1_1_1.G94.Image</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Ensure that the img element's alt text serves the same purpose and presents the same information as the image.<br /><br />
+<pre><code>&lt;img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNyIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDcgMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRpdGxlPkFycm93PC90aXRsZT48cGF0aCBzdHJva2U9IiM5MDk0OUMiIHN0cm9rZS13aWR0aD0iMS41IiBkPSJNMSAxMWw1LTUtNS01Ii...</code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > div:nth-child(4) > a:nth-child(6) > img</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle1.Guideline1_1.1_1_1.G73,G74</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> If this image cannot be fully described in a short text alternative, ensure a long text alternative is also available, such as in the body text or through a link.<br /><br />
+<pre><code>&lt;img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNyIgaGVpZ2h0PSIxMiIgdmlld0JveD0iMCAwIDcgMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHRpdGxlPkFycm93PC90aXRsZT48cGF0aCBzdHJva2U9IiM5MDk0OUMiIHN0cm9rZS13aWR0aD0iMS41IiBkPSJNMSAxMWw1LTUtNS01Ii...</code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > main > div:nth-child(4) > a:nth-child(6) > img</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_3.3_3_1.G83,G84,G85</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> If an input error is automatically detected in this form, check that the item(s) in error are identified and the error(s) are described to the user in text.<br /><br />
+<pre><code>&lt;form action="https://remotestories.us20.list-manage.com/subscribe/post?u=072a7751eb4f30f3a55d2e12c&amp;amp;id=c59774554://remotestories.us20.list-manage.com/subscribe/post?u=072a7751eb4f30f3a55d2e12c&amp;amp;id=c59774554d" class="NewsletterSubscribe...</code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > aside > form</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_3.3_3_2.G131,G89,G184,H90</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that descriptive labels or instructions (including for required fields) are provided for user input in this form.<br /><br />
+<pre><code>&lt;form action="https://remotestories.us20.list-manage.com/subscribe/post?u=072a7751eb4f30f3a55d2e12c&amp;amp;id=c59774554://remotestories.us20.list-manage.com/subscribe/post?u=072a7751eb4f30f3a55d2e12c&amp;amp;id=c59774554d" class="NewsletterSubscribe...</code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > aside > form</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_3.3_3_3.G177</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that this form provides suggested corrections to errors in user input, unless it would jeopardize the security or purpose of the content.<br /><br />
+<pre><code>&lt;form action="https://remotestories.us20.list-manage.com/subscribe/post?u=072a7751eb4f30f3a55d2e12c&amp;amp;id=c59774554://remotestories.us20.list-manage.com/subscribe/post?u=072a7751eb4f30f3a55d2e12c&amp;amp;id=c59774554d" class="NewsletterSubscribe...</code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > aside > form</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_3.3_3_5.G71,G184,G193</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that context-sensitive help is available for this form, at a Web-page and/or control level.<br /><br />
+<pre><code>&lt;form action="https://remotestories.us20.list-manage.com/subscribe/post?u=072a7751eb4f30f3a55d2e12c&amp;amp;id=c59774554://remotestories.us20.list-manage.com/subscribe/post?u=072a7751eb4f30f3a55d2e12c&amp;amp;id=c59774554d" class="NewsletterSubscribe...</code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > aside > form</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_3.3_3_6.G98,G99,G155,G164,G168.AllForms</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that submissions to this form are either reversible, checked for input errors, and/or confirmed by the user.<br /><br />
+<pre><code>&lt;form action="https://remotestories.us20.list-manage.com/subscribe/post?u=072a7751eb4f30f3a55d2e12c&amp;amp;id=c59774554://remotestories.us20.list-manage.com/subscribe/post?u=072a7751eb4f30f3a55d2e12c&amp;amp;id=c59774554d" class="NewsletterSubscribe...</code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > aside > form</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;input type="email" class="Font NewsletterSubscribe-input Font--black-color Font--small-size Font--medium-weight" id="newsletter-subscribe-email" name="EMAIL" placeholder="francis@raccoon.com"></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#newsletter-subscribe-email</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;input type="text" name="b_072a7751eb4f30f3a55d2e12c_c59774554d" tabindex="-1" value=""></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > aside > form > div > div > input</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button class="Button Button--purple-color NewsletterSubscribe-button">Subscribe&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > aside > form > div > button</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle3.Guideline3_2.3_2_1.G107</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that a change of context does not occur when this input field receives focus.<br /><br />
+<pre><code>&lt;button class="Layout-Sidebar-Cookies-Consent-button">I understand&lt;/button></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > aside > div > ol > li:nth-child(1) > button</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="" href="/cookies">Our cookies policy&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > aside > div > ol > li:nth-child(2) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="" href="/about">About&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > aside > nav > ol > li:nth-child(1) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="" href="/cookies">Cookies&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > aside > nav > ol > li:nth-child(2) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="" href="/terms">Terms&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > aside > nav > ol > li:nth-child(3) > a</small></h4></div>
+</div>
+<div class="panel panel-primary">
+<div class="panel-heading">WCAG2AAA.Principle2.Guideline2_4.2_4_9.H30</div>
+<div class="panel-body">
+<strong class="text-capitalize">notice:</strong> Check that text of the link describes the purpose of the link.<br /><br />
+<pre><code>&lt;a class="" href="/privacy">Privacy&lt;/a></code></pre>
+</div>
+<div class="panel-footer text-sm"><h4><small>#__next > div > div:nth-child(3) > aside > nav > ol > li:nth-child(4) > a</small></h4></div>
+</div>
+</div>
+
+    </div>
+    <script>
+      var errorButton = document.querySelectorAll('.btn-danger')[0];
+      var warningButton = document.querySelectorAll('.btn-warning')[0];
+      var noticeButton = document.querySelectorAll('.btn-primary')[0];
+      var allErrors = document.querySelectorAll('.panel-danger');
+      var allWarnings = document.querySelectorAll('.panel-warning');
+      var allNotices = document.querySelectorAll('.panel-primary');
+
+      function hideAll (arr) {
+        for (var i = 0; i < arr.length; i++) {
+          arr[i].classList.add('hide');
+        }
+      }
+
+      function showAll (arr) {
+        for (var i = 0; i < arr.length; i++) {
+          arr[i].classList.remove('hide');
+        }
+      }
+
+      errorButton.addEventListener('click', function () {
+        if (this.classList.contains('disabled')) {
+          this.classList.remove('disabled');
+          showAll(allErrors);
+        } else {
+          this.classList.add('disabled');
+          hideAll(allErrors);
+        }
+      });
+      warningButton.addEventListener('click', function () {
+        if (this.classList.contains('disabled')) {
+          this.classList.remove('disabled');
+          showAll(allWarnings);
+        } else {
+          this.classList.add('disabled');
+          hideAll(allWarnings);
+        }
+      });
+      noticeButton.addEventListener('click', function () {
+        if (this.classList.contains('disabled')) {
+          this.classList.remove('disabled');
+          showAll(allNotices);
+        } else {
+          this.classList.add('disabled');
+          hideAll(allNotices);
+        }
+      });
+    </script>
+  </body>
+</html>
