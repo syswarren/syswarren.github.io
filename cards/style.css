@@ -292,6 +292,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: safe center;
+  gap: 40px;
   perspective: 2000px;
   position: relative;
   z-index: 1;
