@@ -76,7 +76,7 @@
 
 .card:after {
   opacity: 0.9;
-  background-image: url("https://assets.codepen.io/13471/sparkles.gif"),
+  background-image: url("img/sparkles.gif"),
     linear-gradient(
       125deg,
       #ff008450 15%,
