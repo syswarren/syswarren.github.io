@@ -1,18 +1,18 @@
 :root {
-  --gka: url(https://i.imgur.com/DZ6p0L1.png);
+  --gka: url(img/Education.png);
 }
 
 .card {
   width: 270px;
   height: 378px;
   border-radius: 8px;
-  // width: clamp(296px, 61vh, 18vw);
-  // height: clamp(412px, 85vh, 25.2vw);
-  @media screen and (min-width: 900px) {
-    // width: 61vh;
-    // height: 85vh;
-    // max-width: 500px;
-    // max-height: 700px;
+  // width: clamp(270px, 60vh, 20vw);
+  // height: clamp(378px, 80vh, 32vw);
+  @media all and (min-width: 1200px) {
+    // width: 60vh;
+    // height: 80vh;
+    // max-width: 330px;
+    // max-height: 460px;
     width: 270px;
     height: 378px;
   }
@@ -23,7 +23,6 @@
   overflow: hidden;
   z-index: 10;
   touch-action: none;
-
   //border-radius: 1% / 1%;
   transition: transform 0.7s ease, box-shadow 0.2s ease;
   will-change: transform, filter;
@@ -34,7 +33,7 @@
   transform-origin: center;
 }
 
-.card.slack {
+.card.gka {
   --color1: #ec9bb6;
   --color2: #ccac6f;
   --color3: #69e4a5;
@@ -209,24 +208,17 @@
 }
 
 @keyframes holoCard {
-  0%,
-  100% {
+  0%{
     transform: rotateZ(0deg) rotateX(0deg) rotateY(0deg);
   }
-  5%,
-  8% {
-    transform: rotateZ(0deg) rotateX(6deg) rotateY(-20deg);
+  20%{
+    transform: rotateZ(-2deg) rotateX(18deg) rotateY(2deg);
   }
-  13%,
-  16% {
-    transform: rotateZ(0deg) rotateX(-9deg) rotateY(32deg);
+  60% {
+    transform: rotateZ(4deg) rotateX(4deg) rotateY(8deg);
   }
-  35%,
-  38% {
-    transform: rotateZ(3deg) rotateX(12deg) rotateY(20deg);
-  }
-  55% {
-    transform: rotateZ(-3deg) rotateX(-12deg) rotateY(-27deg);
+  100% {
+    transform: rotateZ(0deg) rotateX(0deg) rotateY(0deg);
   }
 }
 

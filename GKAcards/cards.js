@@ -1,11 +1,3 @@
-/*
-
-  using
-    - an animated gif of sparkles.
-    - an animated gradient as a holo effect.
-    - color-dodge mix blend mode
-
-*/
 var x;
 var $cards = $(".card");
 var $style = $(".hover");
@@ -42,7 +34,6 @@ $cards
     var tf = `transform: rotateX(${ty}deg) rotateY(${tx}deg)`
     // need to use a <style> tag for psuedo elements
     var style = `
-      .card:hover:before { ${grad_pos} }  /* gradient */
       .card:hover:after { ${sprk_pos} ${opc} }   /* sparkles */
     `
     // set / apply css class and style
@@ -61,5 +52,5 @@ $cards
     $card.removeAttr("style");
     x = setTimeout(function() {
       $card.addClass("animated");
-    },2500);
+    },1500);
   });
