@@ -3,8 +3,8 @@
 }
 
 .card {
-  width: 370px;
-  height: 514px;
+  width: 270px;
+  height: 378px;
   border-radius: 8px;
   // width: clamp(296px, 61vh, 18vw);
   // height: clamp(412px, 85vh, 25.2vw);
@@ -13,8 +13,8 @@
     // height: 85vh;
     // max-width: 500px;
     // max-height: 700px;
-    width: 370px;
-    height: 514px;
+    width: 270px;
+    height: 378px;
   }
 
   position: relative;
@@ -77,7 +77,6 @@
 .card:after {
   opacity: 0.9;
   background-image: url("https://assets.codepen.io/13471/sparkles.gif"),
-    url(https://assets.codepen.io/13471/holo.png),
     linear-gradient(
       125deg,
       #ff008450 15%,
@@ -231,10 +230,6 @@
   }
 }
 
-/* .card.product:hover {
-  box-shadow: 0 0 40px -5px grey, 0 0 15px -2px #cca85b,
-    0 20px 35px -20px rgba(0, 0, 0, 0.6);
-} */
 .card.product:hover:before,
 .card.product.active:before {
   background-image: linear-gradient(
